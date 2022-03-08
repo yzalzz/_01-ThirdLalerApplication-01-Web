@@ -11,6 +11,7 @@ ORM失效
  如何解决ORM失效
  1.起别名 用as
  2.手动指定映射规则
+ 3.下划线转驼峰命名
 
 -->
     <resultMap id="accountMap" type="com.fc.entity.Account">
@@ -27,8 +28,12 @@ javaType  数据类型
     <select id="findAll" resultType="com.fc.entity.Account">
         select t_id as id,t_name as username,t_pwd as password from t_account
     </select>
+
     <select id="findOnMap" resultMap="accountMap">
         select * from t_account
     </select>
 
+    <select id="findById" resultType="com.fc.entity.TAccount" parameterType="Integer">
+        select * from t_account where t_id = #{id}
+    </select>
 </mapper>

@@ -2,13 +2,25 @@ package com.fc.test;
 
 import com.fc.dao.AccountDao;
 import com.fc.entity.Account;
+import com.fc.entity.TAccount;
 import com.fc.util.MyBatisUtil;
 import lombok.Data;
 import org.junit.Test;
 
 import java.util.List;
-//111
 public class ORMTest {
+    @Test
+    public void testFindById(){
+        AccountDao accountDao = MyBatisUtil.getMapper(AccountDao.class);
+
+        List<TAccount> id = accountDao.findById(1);
+
+        MyBatisUtil.commit();
+
+        for (TAccount tAccount : id) {
+            System.out.println(tAccount);
+        }
+    }
     @Test
     public void testFindOnMap(){
         AccountDao accountDao = MyBatisUtil.getMapper(AccountDao.class);
