@@ -11,5 +11,5 @@ public class Department {
     //一对多
     //一个部门可以对应多个员工
     //这样写可以查出员工表中的员工信息
-    List<Employee> employees;
+    private List<Employee> employees;
 }

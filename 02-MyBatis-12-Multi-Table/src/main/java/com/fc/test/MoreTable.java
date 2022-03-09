@@ -10,16 +10,16 @@ import org.junit.Test;
 import java.util.List;
 
 public class MoreTable {
+
     @Test
     public void testFindById(){
-        DepartmentDao mapper = MyBatisUtil.getMapper(DepartmentDao.class);
+        DepartmentDao departmentDao = MyBatisUtil.getMapper(DepartmentDao.class);
 
-        List<Department> id = mapper.findById(5);
+        Department id = departmentDao.findById(5);
 
         MyBatisUtil.commit();
-        for (Department department : id) {
-            System.out.println(department);
-        }
+
+        System.out.println(id);
     }
     @Test
     public void test(){

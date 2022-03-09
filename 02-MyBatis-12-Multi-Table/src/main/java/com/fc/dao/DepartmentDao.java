@@ -6,5 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface DepartmentDao {
-     List<Department> findById(@Param("id")Integer id);
+     Department findById(@Param("id") Integer id);
+
+//     List<Department> findById(@Param("id")Integer id);
 }

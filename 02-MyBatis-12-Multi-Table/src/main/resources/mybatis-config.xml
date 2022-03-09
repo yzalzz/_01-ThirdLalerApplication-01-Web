@@ -38,5 +38,6 @@
     <mappers>
         <mapper resource="com/fc/mapper/EmployeeMapper.xml"/>
         <mapper resource="com/fc/mapper/DepartmentMapper.xml"/>
+        <mapper resource="com/fc/mapper/StudentMapper.xml"/>
     </mappers>
 </configuration>
