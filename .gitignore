@@ -8,3 +8,7 @@
 /02-MyBatis-07-Log/target/
 /02-MyBatis-08-Bind1/target/
 /02-MyBatis-09-CRUD/target/
+# Project exclude paths
+/02-MyBatis-10-Util/target/
+/02-MyBatis-11-ORM/target/
+/02-MyBatis-12-Multi-Table/target/
