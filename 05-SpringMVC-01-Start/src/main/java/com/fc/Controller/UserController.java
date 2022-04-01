@@ -17,7 +17,7 @@ public class UserController {
     //方法上的@RequestMapping，相当于二级路径
     @RequestMapping("login")
     public String login(){
-        System.out.println("登录成功？");
+        System.out.println("登录成功");
         //从根路径去找
         return "/login.jsp";
     }

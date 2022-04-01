@@ -12,10 +12,12 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:springMvc.xml</param-value>
         </init-param>
-    <!-- 启动时加载 -->
+
+        <!--启动时加载-->
         <load-on-startup>1</load-on-startup>
     </servlet>
-    <!--前端控制器映射路径 映射dispatcherServlet-->
+
+    <!--配置前端控制器的映射路径-->
     <servlet-mapping>
         <servlet-name>dispatcherServlet</servlet-name>
         <url-pattern>/</url-pattern>

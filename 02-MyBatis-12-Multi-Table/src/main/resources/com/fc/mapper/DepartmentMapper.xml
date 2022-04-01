@@ -13,6 +13,7 @@
             <result column="emp_name" property="name"/>
         </collection>
     </resultMap>
+
     <select id="findById" resultMap="findByIdMap">
         select e.emp_id , e. emp_name , d.dept_id,d.dept_id from department d
         inner join employee e on d.dept_id = e.dept_id

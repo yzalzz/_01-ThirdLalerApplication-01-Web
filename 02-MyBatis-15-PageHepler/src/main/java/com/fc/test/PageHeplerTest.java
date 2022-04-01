@@ -17,7 +17,7 @@ public class PageHeplerTest {
    public void testPageInfo(){
       StudentDao studentDao = MyBatisUtil.getMapper(StudentDao.class);
 //开启分页
-      PageHelper.startPage(1,2);
+      PageHelper.startPage(1,5);
 
       List<Student> students = studentDao.findAll();
 //封装PageInfo
