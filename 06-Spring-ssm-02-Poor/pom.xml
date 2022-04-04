@@ -66,6 +66,7 @@
             <artifactId>pagehelper</artifactId>
             <version>5.2.0</version>
         </dependency>
+
         <!--mybatis整合spring-->
         <dependency>
             <groupId>org.mybatis</groupId>

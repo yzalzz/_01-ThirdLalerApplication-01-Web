@@ -48,7 +48,7 @@
         <table schema="" tableName="alleviation"/>
         <table schema="" tableName="collection"/>
         <table schema="" tableName="message_board"/>
-        <table tableName="carousel" schema=""/>
+        <table schema=""  tableName="carousel"/>
         <table schema="" tableName="poor"/>
 
         <table schema="" tableName="user"/>

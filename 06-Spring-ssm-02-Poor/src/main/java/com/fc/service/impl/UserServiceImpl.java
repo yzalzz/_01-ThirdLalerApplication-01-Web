@@ -1,52 +1,101 @@
-//package com.fc.service.impl;
-//
-//import com.fc.dao.UserMapper;
-//import com.fc.entity.User;
-//import com.fc.service.UserService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//import java.util.Date;
-//import java.util.List;
-//
-//@Service
-//public class UserServiceImpl implements UserService {
-//    @Autowired
-//    private UserMapper userMapper;
-//
-//    @Override
-//    public int updata(User user) {
-//        user.setId(6L);
-//        user.setUsername("1111");
-//        user.setPassword("88888");
-//        userMapper.updateByPrimaryKey(user);
-//        return userMapper.updateByPrimaryKey(user);
-//    }
-//
-//
-//
-//    @Override
-//    public List<User> list() {
-//        return userMapper.selectByExample(null);
-//    }
-//
-//    @Override
-//    public int del(Long id) {
-//        return userMapper.deleteByPrimaryKey(id);
-//    }
-//    @Override
-//    public int add(User user) {
-//        user.setCreateTime(new Date());
-//        user.setUsername("龟田啊孟");
-//        user.setPassword("123456");
-//        user.setName("孟志斌");
-//        user.setAge("85");
-//        user.setGender("未知");
-//        user.setPhone("15896930988");
-//        user.setEmail("898968989@qq.com");
-//        user.setPhoto("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20101108%2F20101108160056-1620231282.jpg&refer=http%3A%2F%2Fpic.baike.soso.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651288501&t=4ec4cb4b1bb192e8588d0f6252ab719a");
-//        userMapper.insert(user);
-//        return userMapper.insert(user);
-//    }
-//
-//}
+package com.fc.service.impl;
+
+import com.fc.dao.UserMapper;
+import com.fc.entity.User;
+import com.fc.service.UserService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class UserServiceImpl implements UserService {
+    @Autowired
+    private UserMapper userMapper;
+
+    @Override
+    public Map<String,Object> updata(User user) {
+        Map<String, Object> map = new HashMap<>();
+        user.setId(9L);
+        user.setPassword("12345");
+        user.setUsername("哈哈");
+        if (userMapper.updateByPrimaryKey(user) !=1){
+            map.put("message","用户改变失败");
+            map.put("code",400);
+            map.put("success:",false);
+            map.put("data","errMsg:错误描述");
+            return map;
+        }else {
+            map.put("message","用户改变成功");
+            map.put("code",200);
+            map.put("success:",true);
+            map.put("data","");
+        }
+        return map;
+    }
+//del
+    @Override
+    public Map<String,Object> del(Long id) {
+        Map<String , Object> map = new HashMap<>();
+        if(userMapper.deleteByPrimaryKey(8L)!=1){
+            map.put("message","用户删除失败");
+            map.put("code",400);
+            map.put("success:",false);
+            map.put("data","errMsg:错误描述");
+            return map;
+        }else {
+            map.put("message","用户删除成功");
+            map.put("code",200);
+            map.put("success:",true);
+            map.put("data","");
+        }
+        return map;
+    }
+    //add
+    @Override
+    public Map<String ,Object> add(User user) {
+        Map<String, Object> map = new HashMap<>();
+        if (userMapper.insert(user) !=1) {
+            map.put("message", "用户添加失败");
+            map.put("code", 400);
+            map.put("success:", false);
+            map.put("data", "errMsg:错误描述");
+        } else {
+            map.put("message", "用户添加成功");
+            map.put("code", 200);
+            map.put("success:", true);
+            map.put("data", "");
+        }
+        return map;
+    }
+
+    //list
+    @Override
+    public Map<String, Object> list(Integer pageNum,Integer pageSize) {
+        //开启分页
+        PageHelper.startPage(pageNum,pageSize);
+        List<User> list = userMapper.selectByExample(null);
+        PageInfo<User> userPageInfo = new PageInfo<>(list);
+        Map<String , Object> map = new HashMap<>();
+        if (list==null){
+            map.put("message","用户获取失败");
+            map.put("code",400);
+            map.put("success:",false);
+            map.put("data","errMsg:错误描述");
+            return map;
+        }else {
+            map.put("message","用户获取成功");
+            map.put("code",200);
+            map.put("success:",true);
+            map.put("data",userPageInfo.getList());
+            map.put("data",userPageInfo);
+        }
+        return map;
+    }
+
+}
