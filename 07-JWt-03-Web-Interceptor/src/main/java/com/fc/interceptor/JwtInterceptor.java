@@ -42,6 +42,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         } catch (TokenExpiredException e) {
             map.put("message", "token已过期");
         } catch (Exception e) {
+            System.out.println(e);
             map.put("message", "token发生异常");
         }
 
