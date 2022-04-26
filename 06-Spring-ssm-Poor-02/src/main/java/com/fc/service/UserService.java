@@ -8,7 +8,7 @@ public interface UserService {
 
 
 
-     ResultVo list(Integer pageNum, Integer pageSize, Long id);
+     ResultVo list(Integer pageNum, Integer pageSize, User param);
 
 
     ResultVo del(Long id);
@@ -18,6 +18,6 @@ public interface UserService {
     ResultVo add(User user);
 
 
-
+    ResultVo login(String username, String password);
 
 }

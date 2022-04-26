@@ -15,8 +15,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("getlist")
-    public ResultVo list(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize, Long id) {
-        return userService.list(pageNum, pageSize, id);
+    public ResultVo list(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize, User param) {
+        return userService.list(pageNum, pageSize, param);
     }
 
     @GetMapping("delete")
@@ -32,6 +32,10 @@ public class UserController {
     @PostMapping("add")
     public ResultVo add(@RequestBody User user) {
         return userService.add(user);
+    }
+    @PostMapping("login")
+    public ResultVo login(@RequestBody User user){
+        return userService.login(user.getUsername(),user.getPassword());
     }
 
 }

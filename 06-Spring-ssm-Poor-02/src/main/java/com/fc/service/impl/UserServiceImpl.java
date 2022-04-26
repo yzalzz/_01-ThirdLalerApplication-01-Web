@@ -2,17 +2,18 @@ package com.fc.service.impl;
 
 import com.fc.dao.UserMapper;
 import com.fc.entity.User;
+import com.fc.entity.UserExample;
 import com.fc.service.UserService;
+import com.fc.util.JwtUtil;
 import com.fc.vo.DataVo;
 import com.fc.vo.ResultVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -66,21 +67,57 @@ public class UserServiceImpl implements UserService {
         return resultVo;
     }
 
+    @Override
+    public ResultVo login( String username, String password) {
+
+        User user = userMapper.login(username);
+        ResultVo resultVo;
+        if (username!=null){
+            if (username.equals(user.getUsername())&&password.equals(user.getPassword())){
+                Map<String,Object>claim=new HashMap<>();
+
+                //创建token
+                String token = JwtUtil.createToken(claim, System.currentTimeMillis() * 1000 * 60);
+
+                resultVo = new ResultVo(200, "登录成功", true,token );
+            }else {
+                resultVo = new ResultVo(400, "登录失败", false,"" );
+            }
+        }else {
+            resultVo = new ResultVo(400, "登录失败", false,"" );
+        }
+        System.out.println(user);
+        return resultVo;
+
+    }
 
     //list
     @Override
-    public ResultVo list(Integer pageNum, Integer pageSize, Long id) {
+    public ResultVo list(Integer pageNum, Integer pageSize, User param) {
         List<User> users;
 
         ResultVo resultVO;
 
         try {
-            if (id == null) {
+            if (param.getId() == null) {
                 PageHelper.startPage(pageNum, pageSize);
 
-                users = userMapper.selectByExample(null);
+                UserExample userExample = new UserExample();
+                if (param.getName()!=null){
+                    UserExample.Criteria criteria = userExample.createCriteria();
+                    criteria.andNameLike("%"+param.getName()+"%");
+                }
+                if (param.getUsername()!=null){
+                    UserExample.Criteria criteria = userExample.createCriteria();
+                    criteria.andUsernameLike("%"+param.getUsername()+"%");
+                }
+                if (param.getGender()!=null){
+                    UserExample.Criteria criteria = userExample.createCriteria();
+                    criteria.andGenderLike("%"+param.getGender()+"%");
+                }
+                users = userMapper.selectByExample(userExample);
             } else {
-                User user = userMapper.selectByPrimaryKey(id);
+                User user = userMapper.selectByPrimaryKey(param.getId());
                 users = new ArrayList<>();
                 users.add(user);
             }
