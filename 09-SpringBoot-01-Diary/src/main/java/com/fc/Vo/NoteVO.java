@@ -3,7 +3,7 @@ package com.fc.Vo;
 import com.fc.entity.TbNote;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
+//主页上显示日期分类和类别分类
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class NoteVO extends TbNote {

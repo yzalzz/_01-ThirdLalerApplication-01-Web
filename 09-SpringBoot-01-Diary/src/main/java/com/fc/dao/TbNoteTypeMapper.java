@@ -1,5 +1,6 @@
 package com.fc.dao;
 
+import com.fc.entity.TbNote;
 import com.fc.entity.TbNoteType;
 import com.fc.entity.TbNoteTypeExample;
 import java.util.List;
@@ -28,7 +29,8 @@ public interface TbNoteTypeMapper {
 
     int updateByPrimaryKeySelective(TbNoteType record);
 
-    int updateByPrimaryKey(TbNoteType record);
+    int updateByPrimaryKey(Integer record);
 
-    List<TbNoteType> findIdAndUserId(@Param("id") Integer id, @Param("userId") Integer userId);
+    List<TbNoteType> findIdAndUserId( Integer userId);
+//    TbNoteType findAll(TbNoteType id);
 }

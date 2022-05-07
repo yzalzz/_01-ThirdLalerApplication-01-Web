@@ -1,17 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fc.dao.TbNoteMapper">
+<!--<select id="findAll" resultType="com.fc.entity.TbNote">-->
+<!--select tnt.type_name,tn.*,tn.pub_time  from tb_note tn-->
+<!--inner join tb_note_type tnt on tn.type_id = tnt.id-->
+<!--where tn.id=#{id}-->
+<!--</select>-->
 
+  <select id="detail" resultType="com.fc.Vo.NoteVO">
+    select tn.*,tnt.type_name  from tb_note tn
+inner join tb_note_type tnt on tn.type_id = tnt.id
+where tn.id=#{id}
+  </select>
+
+  <!--类别分类查询-->
+  <select id="findTypeInfo" resultType="com.fc.Vo.NoteVO">
+    select count(tn.id) as noteCount, tnt.id as typeId, tnt.type_name as groupName
+    from tb_note tn
+           right join tb_note_type tnt
+                      on tn.type_id = tnt.id
+    where tnt.user_id = #{userId}
+    group by tnt.id
+    order by count(tn.id) desc
+  </select>
+
+  <!--日期分类查询-->
+  <select id="findDateInfo" resultType="com.fc.Vo.NoteVO">
+    select count(1) as noteCount, date_format(pub_time, '%Y年%m月') as groupName
+    from tb_note tn
+           inner join tb_note_type tnt
+                      on tn.type_id = tnt.id
+    where tnt.user_id = #{userId}
+    group by date_format(pub_time, '%Y年%m月')
+    order by date_format(pub_time, '%Y年%m月') desc
+  </select>
+
+  <!--分页查询所有的日记-->
   <select id="findByPageAndUserId" resultType="com.fc.entity.TbNote">
     select tn.*
     from tb_user tu
     inner join tb_note_type tnt on tu.id = tnt.user_id
     inner join tb_note tn on tnt.id = tn.type_id
     where tu.id = #{userId}
-    <if test="title != null">
-      and tn.title = #{title}
+    <if test="title != null and title != ''">
+      and tn.title like #{title}
     </if>
-    <if test="date != null">
+    <if test="date != null and date != ''">
       and date_format(tn.pub_time, '%Y年%m月') = #{date}
     </if>
     <if test="id != null">
@@ -127,7 +161,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -145,10 +179,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.fc.entity.TbNote">
-    insert into tb_note (id, title, type_id, 
+    insert into tb_note (id, title, type_id,
       pub_time, lon, lat, content
       )
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER},
       #{pubTime,jdbcType=TIMESTAMP}, #{lon,jdbcType=REAL}, #{lat,jdbcType=REAL}, #{content,jdbcType=LONGVARCHAR}
       )
   </insert>

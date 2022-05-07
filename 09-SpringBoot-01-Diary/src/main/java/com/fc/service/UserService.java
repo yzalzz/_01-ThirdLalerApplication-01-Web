@@ -10,8 +10,8 @@ import java.util.Map;
 public interface UserService {
     ResultVO login(String username, String password);
 
-    ResultVO update(MultipartFile img, TbUser tbUser);
+     Integer checkNick(String nick);
 
-    Map<String,Object> checkNick(String username);
+    ResultVO update(MultipartFile img, TbUser user);
 
 }

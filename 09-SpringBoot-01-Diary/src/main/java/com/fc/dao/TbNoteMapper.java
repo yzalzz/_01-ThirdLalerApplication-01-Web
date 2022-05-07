@@ -1,8 +1,11 @@
 package com.fc.dao;
 
+import com.fc.Vo.NoteVO;
 import com.fc.entity.TbNote;
 import com.fc.entity.TbNoteExample;
 import java.util.List;
+
+import com.fc.entity.TbNoteTypeExample;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +23,7 @@ public interface TbNoteMapper {
 
     List<TbNote> selectByExampleWithBLOBs(TbNoteExample example);
 
-    List<TbNote> selectByExample(TbNoteExample example);
+    List<TbNote> selectByExample(TbNoteTypeExample example);
 
     TbNote selectByPrimaryKey(Integer id);
 
@@ -34,8 +37,15 @@ public interface TbNoteMapper {
 
     int updateByPrimaryKeyWithBLOBs(TbNote record);
 
-    int updateByPrimaryKey(TbNote record);
+    int updateByPrimaryKey(Integer record);
 
     List<TbNote> findByPageAndUserId(@Param("userId") Integer userId, @Param("id") Integer id, @Param("title") String title, @Param("date") String date);
 
+    TbNote findAll(Integer id);
+
+    List<NoteVO> findDateInfo(Integer userId);
+
+    List<NoteVO> findTypeInfo(Integer userId);
+
+    NoteVO detail(Integer id);
 }

@@ -5,27 +5,28 @@ spring:
     url: jdbc:mysql://localhost:3306/cloud_diary?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimeZone=GTM+8
     username: root
     password: yza20020128.
+
 mybatis:
-  # mybatis-config.xmlÅäÖÃÎÄ¼şËùÔÚµÄÂ·¾¶
+  # mybatis-config.xmlé…ç½®æ–‡ä»¶æ‰€åœ¨çš„è·¯å¾„
   #  config-location:
-  # É¨ÃèÖ¸¶¨Â·¾¶ÏÂµÄÓ³ÉäÎÄ¼ş£¨sql£©
+  # æ‰«ææŒ‡å®šè·¯å¾„ä¸‹çš„æ˜ å°„æ–‡ä»¶ï¼ˆsqlï¼‰
   mapper-locations: classpath:com/fc/mapper/*.xml
   configuration:
-    # ¼ÓsqlÖ´ĞĞÈÕÖ¾
+    # åŠ sqlæ‰§è¡Œæ—¥å¿—
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    # ¶ş¼¶»º´æ
+    # äºŒçº§ç¼“å­˜
     cache-enabled: true
-    # Ö÷¼ü»ØÌî
+    # ä¸»é”®å›å¡«
     use-generated-keys: true
-    # ÍÕ·åÓ³Éä
+    # é©¼å³°æ˜ å°„
     map-underscore-to-camel-case: true
-    # ÀÁ¼ÓÔØ
+    # æ‡’åŠ è½½
     lazy-loading-enabled: true
-    # »ı¼«¼ÓÔØ
+    # ç§¯æåŠ è½½
     aggressive-lazy-loading: false
-  # ±ğÃûËùÔÚµÄ°ü
+  # åˆ«åæ‰€åœ¨çš„åŒ…
   type-aliases-package: com.fc.entity
-# ·ÖÒ³²å¼ş
+# åˆ†é¡µæ’ä»¶
 pagehelper:
   reasonable: true
   auto-dialect: true

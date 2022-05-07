@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fc.dao.TbNoteTypeMapper">
-  <select id="findIdAndUserId" resultType="com.fc.entity.TbNoteType">
-    select tnt.* from tb_user tu
-    inner join tb_note_type tnt on tu.id = tnt.user_id
-    where tu.id=#{id}
-  </select>
+
+ <select id="findIdAndUserId" resultType="com.fc.entity.TbNoteType">
+   select tb_note_type.* from tb_note_type
+inner join tb_user tu on tb_note_type.user_id = tu.id
+where tu.id=#{id}
+ </select>
 
   <resultMap id="BaseResultMap" type="com.fc.entity.TbNoteType">
     <id column="id" jdbcType="INTEGER" property="id" />
@@ -88,7 +89,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from tb_note_type
     where id = #{id,jdbcType=INTEGER}
@@ -103,13 +104,13 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.fc.entity.TbNoteType">
+  <insert id="insert"  parameterType="com.fc.entity.TbNoteType">
     insert into tb_note_type (id, type_name, user_id
       )
     values (#{id,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.fc.entity.TbNoteType">
+  <insert id="insertSelective" keyProperty="id"  parameterType="com.fc.entity.TbNoteType">
     insert into tb_note_type
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

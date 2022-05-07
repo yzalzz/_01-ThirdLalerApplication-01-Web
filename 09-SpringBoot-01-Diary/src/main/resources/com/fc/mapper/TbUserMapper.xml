@@ -88,7 +88,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from tb_user
     where id = #{id,jdbcType=INTEGER}
@@ -104,12 +104,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.fc.entity.TbUser">
-    insert into tb_user (id, username, password, 
+    insert into tb_user (id, username, password,
       nick, head, mood)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{nick,jdbcType=VARCHAR}, #{head,jdbcType=VARCHAR}, #{mood,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.fc.entity.TbUser">
+  <insert id="insertSelective"  parameterType="com.fc.entity.TbUser">
     insert into tb_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
